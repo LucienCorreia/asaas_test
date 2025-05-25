@@ -1,0 +1,23 @@
+version: '3.9'
+
+services:
+  web:
+    container_name: web
+    build: .
+    ports:
+      - "80:80"
+    volumes:
+      - .:/code
+    depends_on:
+      - mysql
+  mysql:
+    image: mysql:8
+    container_name: mysql
+    volumes:
+      - ./infra/mysql/data:/var/lib/mysql
+      - ./infra/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_DATABASE: ${MYSQL_DATABASE}
+      MYSQL_USER: ${MYSQL_USER}
+      MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+      MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
