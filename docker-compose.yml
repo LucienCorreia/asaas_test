@@ -1,5 +1,3 @@
-version: '3.9'
-
 services:
   web:
     container_name: web
@@ -7,12 +5,14 @@ services:
     ports:
       - "80:80"
     volumes:
-      - .:/code
+      - ./laravel:/app
     depends_on:
       - mysql
   mysql:
     image: mysql:8
     container_name: mysql
+    ports:
+      - "3306:3306"
     volumes:
       - ./infra/mysql/data:/var/lib/mysql
       - ./infra/mysql/docker-entrypoint-initdb.d:/docker-entrypoint-initdb.d

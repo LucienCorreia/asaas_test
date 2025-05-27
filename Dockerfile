@@ -43,7 +43,11 @@ COPY laravel /app
 
 USER root
 
+RUN rm -rf /app/composer.lock
+
 RUN composer install --no-interaction --optimize-autoloader
+
+RUN rm -rf /app/composer.lock
 
 RUN chmod 777 -R /app/storage/framework/views
 RUN chmod 777 -R /app/storage/framework/cache
@@ -52,7 +56,6 @@ RUN chmod 777 -R /app/storage/logs
 RUN chmod 777 -R /app/bootstrap/cache
 RUN chmod 777 -R /data/caddy
 RUN chmod 777 -R /config/caddy
-RUN chmod 777 -R /app/.env
 
 USER www-data
 
