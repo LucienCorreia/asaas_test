@@ -2,6 +2,11 @@ FROM  --platform=$BUILDPLATFORM dunglas/frankenphp:php8.4-alpine
 
 RUN apk update
 
+RUN apk add --no-cache $PHPIZE_DEPS \
+    && pecl install pcov \
+    && docker-php-ext-enable pcov \
+    && apk del $PHPIZE_DEPS
+
 RUN apk add --no-cache \
     libxml2-dev \
     libzip-dev \
